@@ -1,10 +1,16 @@
 import Customers from './model'
 
 const CustomersController = {
+
+
     getAll(req, res) {
-        res.json({
-            users: Customers.findAll()
+
+        Customers.findAll().then((data) => {
+            res.json({
+                users: data
+            })
         })
+
     },
 
     get(req, res) {
