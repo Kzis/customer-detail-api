@@ -27,7 +27,8 @@
     "express": "^4.17.1",
     "fs": "0.0.1-security",
     "jsonwebtoken": "^8.5.1",
-    "pg": "^7.12.1"
+    "pg": "^7.12.1",
+    "pg-format": "^1.0.4"
   },
   "devDependencies": {
     "nodemon": "^1.19.2"

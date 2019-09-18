@@ -1,26 +1,27 @@
 
-import ModelDatabase from '../model-database'
+import DatabaseUtils from '../databaseUtils'
 
 const Customers = {
 
-    ...ModelDatabase,
+    ...DatabaseUtils,
     key: 'customers',
 
     findAll: async function () {
+        let client = null
+        let dataFromQuery = null
         let data = null
+        let queryString = null
 
         try {
-            connection = ModelDatabase.getConnections()
-            console.log(connection)
-            data = await connection.query('SELECT * FROM customer')
-            if (data.rowCount > 0) {
-                data = data.rows
-            }
+            queryString = 'SELECT * FROM customer'
+            client = await this.getConnections()
+            dataFromQuery = await client.query(queryString)
+            data = (dataFromQuery.rowCount > 0) ? dataFromQuery.rows : null
 
         } catch (err) {
             console.log(err)
         } finally {
-            connection.release()
+            client.release()
         }
 
         return data
