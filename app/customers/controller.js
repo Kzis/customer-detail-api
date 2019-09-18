@@ -5,19 +5,50 @@ const CustomersController = {
 
     getAll(req, res) {
 
-        Customers.findAll().then((data) => {
-            res.json({
-                users: data
+        Customers.findAll()
+            .then((data) => {
+                res.json({
+                    users: data
+                })
             })
-        })
 
+    },
+
+    getById(req, res) {
+        Customers.findById(req.params.id)
+            .then((data) => {
+                res.json({
+                    users: data
+                })
+            })
     },
 
     get(req, res) {
-        res.json({
-            users: Customers.find(req.params.id)
-        })
+        Customers.findByParams(req.body)
+            .then((data) => {
+                res.json({
+                    users: data
+                })
+            })
     },
+
+    insert(req, res) {
+        Customers.addUser(req.body)
+            .then((data) => {
+                res.json({
+                    users: data
+                })
+            })
+    },
+
+    // update(req, res) {
+
+    // },
+
+    // delete(req, res) {
+
+    // },
+
 
 }
 
