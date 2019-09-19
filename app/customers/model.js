@@ -123,6 +123,24 @@ const Customers = {
 
         return data
     },
+
+    delete: async function (id) {
+        let client = null
+
+        try {
+            const queryString = 'DELETE FROM public.customer WHERE id = $1'
+            const params = [id]
+
+            client = await this.getConnections()
+            client.query(queryString, params)
+
+        } catch (err) {
+            console.log(err)
+        } finally {
+            client.release()
+        }
+
+    }
 }
 
 export default Customers;

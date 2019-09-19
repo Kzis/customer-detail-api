@@ -50,9 +50,13 @@ const CustomersController = {
             })
     },
 
-    // delete(req, res) {
-    // res.status(204).send()
-    // },
+    delete(req, res) {
+        Customers.delete(req.params.id)
+            .then(() => {
+                res.status(204).send()
+            })
+
+    },
 
 
 }
