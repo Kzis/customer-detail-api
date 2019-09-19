@@ -8,7 +8,7 @@ export function setup(router) {
         .post('/', controller.get)
 
         .post('/add', controller.insert)
-    // .post('/update/:id', controller.update)
+        .post('/update/:id', controller.update)
     // .del('/delete', controller.delete)
 
 }

@@ -33,7 +33,16 @@ const CustomersController = {
     },
 
     insert(req, res) {
-        Customers.addUser(req.body)
+        Customers.add(req.body)
+            .then((data) => {
+                res.status(201).json({
+                    users: data
+                })
+            })
+    },
+
+    update(req, res) {
+        Customers.update(req.params.id, req.body)
             .then((data) => {
                 res.json({
                     users: data
@@ -41,12 +50,8 @@ const CustomersController = {
             })
     },
 
-    // update(req, res) {
-
-    // },
-
     // delete(req, res) {
-
+    // res.status(204).send()
     // },
 
 

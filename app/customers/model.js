@@ -71,7 +71,7 @@ const Customers = {
         return data
     },
 
-    addUser: async function (body) {
+    add: async function (body) {
         let client = null
         let dataFromQuery = null
         let data = null
@@ -97,6 +97,32 @@ const Customers = {
         return data
     },
 
+    update: async function (id, body) {
+
+        let client = null
+        let dataFromQuery = null
+        let data = null
+
+        const query = {
+            text: 'UPDATE public.customer ' +
+                'SET title_code=$2, name_th=$3, name_en=$4, surname_th=$5, surname_en=$6, gender=$7, tel=$8, email=$9, birthdate=$10 ' +
+                'WHERE id=$1 RETURNING *',
+            values: [id, body.titleCode, body.nameTh, body.nameEn, body.surnameTh, body.surnameEn, body.gender, body.tel, body.email, body.birthdate],
+        }
+
+        try {
+            client = await this.getConnections()
+            dataFromQuery = await client.query(query)
+            data = (dataFromQuery.rowCount > 0) ? dataFromQuery.rows : null
+
+        } catch (err) {
+            console.log(err)
+        } finally {
+            client.release()
+        }
+
+        return data
+    },
 }
 
 export default Customers;
