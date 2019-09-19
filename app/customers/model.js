@@ -1,5 +1,5 @@
 
-import DatabaseUtils from '../databaseUtils'
+import DatabaseUtils from '../../utils/database-utils'
 
 const Customers = {
 
