@@ -1,19 +1,21 @@
 
 import DatabaseUtils from '../../utils/database-utils'
 
-const Customers = {
+class Customers {
 
-    ...DatabaseUtils,
-    key: 'customers',
+    constructor() {
+        this.key = 'customers';
+    }
 
-    findAll: async function () {
+    static async findAll() {
+
         let client = null
         let dataFromQuery = null
         let data = null
 
         try {
             const queryString = ('SELECT * FROM public.customer')
-            client = await this.getConnections()
+            client = await DatabaseUtils.getConnections()
             dataFromQuery = await client.query(queryString)
             data = (dataFromQuery.rowCount > 0) ? dataFromQuery.rows : null
 
@@ -24,9 +26,9 @@ const Customers = {
         }
 
         return data
-    },
+    }
 
-    findById: async function (id) {
+    static async findById(id) {
         let client = null
         let dataFromQuery = null
         let data = null
@@ -35,7 +37,7 @@ const Customers = {
             const queryString = 'SELECT * FROM public.customer WHERE id = $1'
             const params = [id]
 
-            client = await this.getConnections()
+            client = await DatabaseUtils.getConnections()
             dataFromQuery = await client.query(queryString, params)
             data = (dataFromQuery.rowCount > 0) ? dataFromQuery.rows : null
 
@@ -46,19 +48,18 @@ const Customers = {
         }
 
         return data
-    },
+    }
 
-
-    findByParams: async function (body) {
+    static async findByParams(body) {
         let client = null
         let dataFromQuery = null
         let data = null
 
         try {
             const queryString = 'SELECT * FROM public.customer WHERE id = $1 and name_en = $2'
-            const params = [body.id, body.name_en]
+            const params = [body.id, body.nameEn]
 
-            client = await this.getConnections()
+            client = await DatabaseUtils.getConnections()
             dataFromQuery = await client.query(queryString, params)
             data = (dataFromQuery.rowCount > 0) ? dataFromQuery.rows : null
 
@@ -69,9 +70,9 @@ const Customers = {
         }
 
         return data
-    },
+    }
 
-    add: async function (body) {
+    static async add(body) {
         let client = null
         let dataFromQuery = null
         let data = null
@@ -84,7 +85,7 @@ const Customers = {
 
         try {
 
-            client = await this.getConnections()
+            client = await DatabaseUtils.getConnections()
             dataFromQuery = await client.query(query)
             data = (dataFromQuery.rowCount > 0) ? dataFromQuery.rows : null
 
@@ -95,9 +96,9 @@ const Customers = {
         }
 
         return data
-    },
+    }
 
-    update: async function (id, body) {
+    static async update(id, body) {
 
         let client = null
         let dataFromQuery = null
@@ -111,7 +112,7 @@ const Customers = {
         }
 
         try {
-            client = await this.getConnections()
+            client = await DatabaseUtils.getConnections()
             dataFromQuery = await client.query(query)
             data = (dataFromQuery.rowCount > 0) ? dataFromQuery.rows : null
 
@@ -122,16 +123,16 @@ const Customers = {
         }
 
         return data
-    },
+    }
 
-    delete: async function (id) {
+    static async delete(id) {
         let client = null
 
         try {
             const queryString = 'DELETE FROM public.customer WHERE id = $1'
             const params = [id]
 
-            client = await this.getConnections()
+            client = await DatabaseUtils.getConnections()
             client.query(queryString, params)
 
         } catch (err) {
@@ -141,6 +142,7 @@ const Customers = {
         }
 
     }
+
 }
 
 export default Customers;
