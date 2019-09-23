@@ -1,6 +1,9 @@
 
 import DatabaseUtils from '../../utils/database-utils'
 
+const schema = 'public'
+const table = 'customer'
+
 class Customers {
 
     constructor() {
@@ -8,46 +11,11 @@ class Customers {
     }
 
     static async findAll() {
-
-        let client = null
-        let dataFromQuery = null
-        let data = null
-
-        try {
-            const queryString = ('SELECT * FROM public.customer')
-            client = await DatabaseUtils.getConnections()
-            dataFromQuery = await client.query(queryString)
-            data = (dataFromQuery.rowCount > 0) ? dataFromQuery.rows : null
-
-        } catch (err) {
-            console.log(err)
-        } finally {
-            client.release()
-        }
-
-        return data
+        return await DatabaseUtils.findAll(schema, table)
     }
 
     static async findById(id) {
-        let client = null
-        let dataFromQuery = null
-        let data = null
-
-        try {
-            const queryString = 'SELECT * FROM public.customer WHERE id = $1'
-            const params = [id]
-
-            client = await DatabaseUtils.getConnections()
-            dataFromQuery = await client.query(queryString, params)
-            data = (dataFromQuery.rowCount > 0) ? dataFromQuery.rows : null
-
-        } catch (err) {
-            console.log(err)
-        } finally {
-            client.release()
-        }
-
-        return data
+        return await DatabaseUtils.findById(schema, table, id)
     }
 
     static async findByParams(body) {
