@@ -18,26 +18,32 @@ class Customers {
         return await DatabaseUtils.findById(schema, table, id)
     }
 
+    // static async findByParams(body) {
+    //     let client = null
+    //     let dataFromQuery = null
+    //     let data = null
+
+    //     try {
+    //         const queryString = 'SELECT * FROM public.customer WHERE id = $1 and name_en = $2'
+    //         const params = [body.id, body.nameEn]
+
+    //         client = await DatabaseUtils.getConnections()
+    //         dataFromQuery = await client.query(queryString, params)
+    //         data = (dataFromQuery.rowCount > 0) ? dataFromQuery.rows : null
+
+    //     } catch (err) {
+    //         console.log(err)
+    //     } finally {
+    //         client.release()
+    //     }
+
+    //     return data
+    // }
+
     static async findByParams(body) {
-        let client = null
-        let dataFromQuery = null
-        let data = null
-
-        try {
-            const queryString = 'SELECT * FROM public.customer WHERE id = $1 and name_en = $2'
-            const params = [body.id, body.nameEn]
-
-            client = await DatabaseUtils.getConnections()
-            dataFromQuery = await client.query(queryString, params)
-            data = (dataFromQuery.rowCount > 0) ? dataFromQuery.rows : null
-
-        } catch (err) {
-            console.log(err)
-        } finally {
-            client.release()
-        }
-
-        return data
+        let column = ['id', 'name_en']
+        let params = [body.id, body.nameEn]
+        return await DatabaseUtils.findByParams(schema, table, column, params)
     }
 
     static async add(body) {
