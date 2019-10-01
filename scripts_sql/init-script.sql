@@ -87,7 +87,7 @@ VALUES('Manager') , ('Deputy Manager');
 
 INSERT INTO public.menu_mapping
 (department,role,main_menu_access,sub_menu_access)
-VALUES(1,1,'1,2','1,2|1,2');
+VALUES(1,1,'1','1,2') , (1,1,'2','3,4');
 		
 
 	
