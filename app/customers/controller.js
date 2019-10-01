@@ -1,10 +1,22 @@
-import Customers from './model'
+import CustomersDAO from './dao'
+import STATUS from '../../master/http-status'
 
 class CustomersController {
 
     static getAll(req, res) {
 
-        Customers.findAll().then((data) => {
+        CustomersDAO.findAll().then((data) => {
+            return res.status(STATUS.OK).json({
+                users: data
+            })
+        })
+
+
+    }
+
+    static getById(req, res) {
+
+        CustomersDAO.findByPk(req.params.id).then((data) => {
             return res.json({
                 users: data
             })
@@ -12,19 +24,9 @@ class CustomersController {
 
     }
 
-    static getById(req, res) {
+    static getByParams(req, res) {
 
-        Customers.findById(req.params.id)
-            .then((data) => {
-                res.json({
-                    users: data
-                })
-            })
-
-    }
-
-    static get(req, res) {
-        Customers.findByParams(req.body)
+        CustomersDAO.findByParams(req.body)
             .then((data) => {
                 res.json({
                     users: data
@@ -33,16 +35,17 @@ class CustomersController {
     }
 
     static insert(req, res) {
-        Customers.add(req.body)
+
+        CustomersDAO.add(req.body)
             .then((data) => {
-                res.status(201).json({
+                res.status(STATUS.CREATED).json({
                     users: data
                 })
             })
     }
 
     static update(req, res) {
-        Customers.update(req.params.id, req.body)
+        CustomersDAO.update(req.params.id, req.body)
             .then((data) => {
                 res.json({
                     users: data
@@ -51,11 +54,10 @@ class CustomersController {
     }
 
     static delete(req, res) {
-        Customers.delete(req.params.id)
+        CustomersDAO.delete(req.params.id)
             .then(() => {
-                res.status(204).send()
+                res.status(STATUS.NO_CONTENT).send()
             })
-
     }
 }
 

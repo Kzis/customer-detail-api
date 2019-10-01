@@ -28,7 +28,9 @@
     "fs": "0.0.1-security",
     "jsonwebtoken": "^8.5.1",
     "pg": "^7.12.1",
-    "pg-format": "^1.0.4"
+    "pg-format": "^1.0.4",
+    "pg-hstore": "^2.3.3",
+    "sequelize": "^5.19.1"
   },
   "devDependencies": {
     "nodemon": "^1.19.2"
