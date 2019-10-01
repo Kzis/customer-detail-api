@@ -1,4 +1,4 @@
-import config from '../config'
+import config from '../config/database-config'
 const Sequelize = require('sequelize');
 const postgreSQL = config.postgreSQL.dev
 

@@ -1,8 +1,10 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import fs from 'fs';
-import config from './config';
 import cors from 'cors'
+import config from './config/database-config';
+import { loadAPIConfig } from './config/api-config'
+// import APIConfig from './config/api-config'
 
 function setupRoutes(app) {
     const APP_DIR = `${__dirname}/app`
@@ -29,6 +31,10 @@ export function setup() {
     app.use(cors())
 
     setupRoutes(app)
+    loadAPIConfig().then((data) => {
+        console.log("### Load API config successed")
+        console.log(data)
+    })
 
     app.listen(PORT, () => {
         console.log("App listening on http://localhost:" + PORT)

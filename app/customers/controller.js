@@ -1,16 +1,21 @@
 import CustomersDAO from './dao'
 import STATUS from '../../master/http-status'
+import { getAPIConfig } from '../../config/api-config'
 
 class CustomersController {
 
     static getAll(req, res) {
+        let API = []
+        getAPIConfig().then((data) => {
+            API = data
+        })
+        console.log(API)
 
         CustomersDAO.findAll().then((data) => {
             return res.status(STATUS.OK).json({
                 users: data
             })
         })
-
 
     }
 
@@ -59,6 +64,7 @@ class CustomersController {
                 res.status(STATUS.NO_CONTENT).send()
             })
     }
+
 }
 
 

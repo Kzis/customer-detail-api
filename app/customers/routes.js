@@ -10,4 +10,5 @@ export function setup(router) {
         .post('/update/:id', controller.update)
         .delete('/:id', controller.delete)
 
+
 }
