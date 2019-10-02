@@ -5,19 +5,19 @@ let data = []
 export async function loadAPIConfig() {
 
     const APIConfig = DatabaseUtils.getConnections().define(
-        'config_api', {
+        'system_config', {
         id: {
             type: Sequelize.INTEGER,
             autoIncrement: true,
             primaryKey: true
         },
-        module: {
+        type: {
             type: Sequelize.STRING
         },
-        url: {
+        key: {
             type: Sequelize.STRING
         },
-        system: {
+        value: {
             type: Sequelize.STRING
         }
     },

@@ -1,96 +1,94 @@
-create table config_api( 
+
+create table system_config( 
 	id serial 	primary key not null,
-	"module" 	text not null,
-	url 		text not null,
-	"system" 	text not null 
+	"type" 		text not null,
+	"key" 		text not null,
+	"value" 	text not null
 );
 
-create table main_menu(
-	id 			serial primary key not null,
-	"name" 		char(50) not null
+create table master_role( 
+	id serial 	primary key not null,
+	"name" 		text not null
 );
 
+create table master_menu( 
+	id serial 	primary key not null,
+	"name" 		text not null
+);
 
-create table sub_menu(
-	id 			serial primary key not null,
-	"name" 		char(50) not null,
-	parent 		int not null 
+create table master_sub_menu( 
+	id serial 	primary key not null,
+	"name" 		text not null
+);
+
+create table map_role_menu( 
+	id serial 	primary key not null,
+	role_id 	int not null,
+	menu_id 	int not null,
+	sub_menu_id 	int not null
+);
+
+create table master_title(
+	id 			serial 	primary key not null,
+	"name" 		text not null
 );
 
 create table "user"( 
 	id 			serial 	primary key not null,
 	title 		int null,
-	"name" 		char(50) not null,
-	surname 	char(50) not null,
-	tel 		char(10) not null,
-	email 		char(250) not null,
-	department	int not null,
+	"name" 		text not null,
+	surname 	text not null,
+	tel 		text ,
+	email 		text ,
 	"role" 		int not null 
 );
 
-create table title(
-	id 			serial 	primary key not null,
-	"name" 		char(200) not null
-);
+INSERT INTO public.system_config
+("type","key","value")
+VALUES('WS','findAllCustomers', 'http://127.0.0.1/customers') ,
+('WS','findByIdCustomers', 'http://127.0.0.1/customers/:id') ,
+('DB','host', 'localhost') ,
+('DB','database', 'dashboard') ,
+('DB','user', 'postgres') ,
+('DB','password', 'admin') ,
+('DB','port', '5432');
 
-create table department( 
-	id 			serial primary key not null,
-	"name" 		char(200) not null
-);
-
-create table role( 
-	id 			serial primary key not null,
-	"name" 		char(200) not null
-);
-
-create table menu_mapping( 
-	id 					serial primary key not null,
-	department 			int not null,
-	role 				int not null,
-	main_menu_access	char(200) not null,
-	sub_menu_access		char(200) not null
-);
-	
-INSERT INTO public.config_api
-("module", url, "system")
-VALUES('test-local', 'http://127.0.0.1/customers/:id', 'dev');
-
-
-INSERT INTO public.config_api
-("module", url, "system")
-VALUES('test-local', 'http://127.0.0.1/customers/:id', 'dev');
-
-INSERT INTO public.main_menu
+INSERT INTO public.master_role
 ("name")
-VALUES('ที่อยู่') , ('กรมธรรม์');
+VALUES('Admin') , ('ACC'), ('CC');
 
-INSERT INTO public.sub_menu
-("name" , parent)
-VALUES('ที่อยู่ปัจจุบัน', 1) ,('ที่อยู่ตามทะเบียนบ้าน',1) , ('ข้อมูลกรมธรรม์' ,2) , ('ข้อมูลการชำระเงิน' ,2);
+INSERT INTO public.master_menu
+("name")
+VALUES('Customers') , ('Policy');
+
+INSERT INTO public.master_sub_menu
+("name")
+VALUES('Sub Customers 1') , ('Sub Customers 2') , ('Sub Policy 1') , ('Sub Policy 2');
+
+INSERT INTO public.map_role_menu
+(role_id,menu_id,sub_menu_id)
+VALUES(1,1,1) , (1,1,2) , (1,2,1) , (1,2,2), (2,1,1) , (2,1,2) , (3,2,1) , (3,2,2);
+
+INSERT INTO public.master_title
+("name")
+VALUES('นาย') , ('นาง'), ('นางสาว');
 
 INSERT INTO public.user
-(title,"name",surname,tel,email,department,"role")
-VALUES (1,'สมชาย','จันทร์โอชา','0801911150','somchai@thailife.com',1,1) ,
-(2,'สมศรี','จันทร์โอชา','0801911150','somsree@thailife.com',2,2);
+(title,"name",surname,tel,email,"role")
+VALUES (1,'สมชาย','นามสกุล','0801911150','somchai@thailife.com',1) ,
+(2,'สมศรี','นามสกุล','0801911150','somsree@thailife.com',2);
 
-INSERT INTO public.title
-("name")
-VALUES('นาย') , ('นาง'), ('นางสาว'), ('ไม่ระบุ');
 
-INSERT INTO public.department
-("name")
-VALUES('IT') , ('Claim');
 
-INSERT INTO public.role
-("name")
-VALUES('Manager') , ('Deputy Manager');
+-- FOR DEMO API
 
-INSERT INTO public.menu_mapping
-(department,role,main_menu_access,sub_menu_access)
-VALUES(1,1,'1','1,2') , (1,1,'2','3,4');
-		
+create table customers(
+id serial primary key not null,
+"name" text not null,
+"surname" text not null,
+"email" text not null
+);
 
-	
-	
-	
-	
+INSERT INTO public.customers
+(name,surname,email)
+VALUES('สมชาย', 'จัทน์โอชา', 'email@email.com'),('สมศรี', 'จัทน์โอชา', 'email@email.com');
