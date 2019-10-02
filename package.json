@@ -27,6 +27,7 @@
     "express": "^4.17.1",
     "fs": "0.0.1-security",
     "jsonwebtoken": "^8.5.1",
+    "node-fetch": "^2.6.0",
     "pg": "^7.12.1",
     "pg-format": "^1.0.4",
     "pg-hstore": "^2.3.3",
