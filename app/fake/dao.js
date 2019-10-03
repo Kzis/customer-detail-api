@@ -38,10 +38,6 @@ class FakeDAO {
             console.log(`Response status ${response.status}.`)
         }
 
-        let data = {
-            id: "test",
-            val: "test"
-        }
         return messageData
     }
 

@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 import DatabaseUtils from '../utils/databaseUtils'
-let data = []
+global.api = []
 
 export async function loadAPIConfig() {
 
@@ -29,8 +29,10 @@ export async function loadAPIConfig() {
 
     const data = await APIConfig.findAll({
         raw: true,
+        where: {
+            type: "WS"
+        }
     })
-
     setAPIConfig(data)
 
     return data
@@ -38,14 +40,9 @@ export async function loadAPIConfig() {
 }
 
 export async function getAPIConfig() {
-    return data
+    return api
 }
 
-function setAPIConfig(datas) {
-    data = datas
+function setAPIConfig(data) {
+    api = data
 }
-
-
-
-
-

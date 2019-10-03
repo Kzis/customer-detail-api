@@ -3,8 +3,7 @@ import bodyParser from 'body-parser';
 import fs from 'fs';
 import cors from 'cors'
 import config from './config/database-config';
-import { loadAPIConfig } from './config/api-config'
-// import APIConfig from './config/api-config'
+import { loadAPIConfig } from './config/system-config'
 
 function setupRoutes(app) {
     const APP_DIR = `${__dirname}/app`

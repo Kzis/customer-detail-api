@@ -1,6 +1,6 @@
 import CustomersDAO from './dao'
 import STATUS from '../../master/http-status'
-import { getAPIConfig } from '../../config/api-config'
+import { getAPIConfig } from '../../config/system-config'
 
 class CustomersController {
 
@@ -8,8 +8,9 @@ class CustomersController {
         let API = []
         getAPIConfig().then((data) => {
             API = data
+            console.log(API)
         })
-        console.log(API)
+
 
         CustomersDAO.findAll().then((data) => {
             return res.status(STATUS.OK).json({
