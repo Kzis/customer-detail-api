@@ -1,6 +1,7 @@
 
 const fetch = require("node-fetch");
 import FakeModel from './model'
+import { getURL } from '../../config/system-config'
 
 class FakeDAO {
 
@@ -10,8 +11,8 @@ class FakeDAO {
 
     static async findAll() {
 
-        const URL = 'https://jsonplaceholder.typicode.com/posts'
         const TOKEN = this.validateToken()
+        const URL = await getURL('fake')
 
         const response = await fetch(URL, {
             method: "POST",

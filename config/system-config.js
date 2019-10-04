@@ -19,6 +19,9 @@ export async function loadAPIConfig() {
         },
         value: {
             type: Sequelize.STRING
+        },
+        active: {
+            type: Sequelize.INTEGER
         }
     },
         {
@@ -30,7 +33,8 @@ export async function loadAPIConfig() {
     const data = await APIConfig.findAll({
         raw: true,
         where: {
-            type: "WS"
+            type: "WS",
+            active: 1
         }
     })
     setAPIConfig(data)
@@ -41,6 +45,10 @@ export async function loadAPIConfig() {
 
 export async function getAPIConfig() {
     return api
+}
+
+export async function getURL(key) {
+    return api.find(config => config.key === key).value
 }
 
 function setAPIConfig(data) {
