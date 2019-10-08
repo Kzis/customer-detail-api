@@ -7,6 +7,20 @@ create table system_config(
 	active 		int not null
 );
 
+create table map_template_api(
+	id serial 		primary key not null,
+	menu_id 		int not null,
+	sub_menu_id 	int not null,
+	template_id 	int not null,
+	api_key 		text not null,
+	mapping			text not null
+);
+
+create table master_template(
+	id serial 	primary key not null,
+	"name" 		text not null
+);
+
 create table master_role( 
 	id serial 	primary key not null,
 	"name" 		text not null
@@ -38,10 +52,9 @@ create table "user"(
 );
 
 
-INSERT INTO public.system_config
+INSERT INTO system_config
 ("type","key","value",active)
 VALUES('WS','SearchByCitizenId', 'http://10.102.60.43:8080/EnquiryPartyServices/SearchByCitizenId',1) ,
-('WS','SearchByCitizenId', 'http://10.102.60.43:8080/EnquiryPartyServices/SearchByCustomerName',1) ,
 ('WS','SearchByCustomerName', 'http://10.102.60.43:8080/EnquiryPartyServices/SearchByCustomerName',1) ,
 ('WS','fake', 'https://jsonplaceholder.typicode.com/posts',1) ,
 ('WS','fakeUnactive', 'https://jsonplaceholder.typicode.com/posts',0) ,
@@ -51,34 +64,52 @@ VALUES('WS','SearchByCitizenId', 'http://10.102.60.43:8080/EnquiryPartyServices/
 ('DB','password', 'admin',0) ,
 ('DB','port', '5432',0);
 
-INSERT INTO public.master_role
+INSERT INTO map_template_api
+(menu_id,sub_menu_id,template_id,api_key,mapping)
+VALUES (1,1,1,'SearchByCitizenId','{
+  templateId : 1,
+  apiKey : "SearchByCitizenId",
+  label : ["Education","Occupation","Marital"],
+  mapping : {
+      label : ["education","occupation","marital"]
+  }
+}') ,
+(1,2,2,'SearchByCustomerName','{
+  templateId : 1,
+  apiKey : "SearchByCitizenId",
+  label : ["Blood Group","Weight","Height"],
+  mapping : {
+      label : ["bloodGroup","weight","height"]
+  }
+}') ;
+
+INSERT INTO master_template
+("name")
+VALUES('Template 1') , ('Template 2');
+
+INSERT INTO master_role
 ("name")
 VALUES('Admin') , ('ACC'), ('CC');
 
-INSERT INTO public.master_menu
+INSERT INTO master_menu
 ("name")
 VALUES('Customers') , ('Policy');
 
-INSERT INTO public.master_sub_menu
+INSERT INTO master_sub_menu
 ("name")
 VALUES('Sub Customers 1') , ('Sub Customers 2') , ('Sub Policy 1') , ('Sub Policy 2');
 
-INSERT INTO public.map_role_menu
+INSERT INTO map_role_menu
 (role_id,menu_id,sub_menu_id)
 VALUES(1,1,1) , (1,1,2) , (1,2,1) , (1,2,2), (2,1,1) , (2,1,2) , (3,2,1) , (3,2,2);
 
---INSERT INTO public.master_title
---("name")
---VALUES('นาย') , ('นาง'), ('นางสาว');
-
-INSERT INTO public.user
+INSERT INTO "user"
 (pid,"role",active)
 VALUES ('900-6468',1,1) ,
 ('290-0582',2,1);
 
 
 -- FOR DEMO API
-
 create table customers(
 id serial primary key not null,
 "name" text not null,
@@ -86,6 +117,6 @@ id serial primary key not null,
 "email" text not null
 );
 
-INSERT INTO public.customers
+INSERT INTO customers
 (name,surname,email)
 VALUES('สมชาย', 'จัทน์โอชา', 'email@email.com'),('สมศรี', 'จัทน์โอชา', 'email@email.com');
