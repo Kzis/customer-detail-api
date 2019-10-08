@@ -40,7 +40,9 @@ create table "user"(
 
 INSERT INTO public.system_config
 ("type","key","value",active)
-VALUES('WS','findAllCustomers', 'http://127.0.0.1/customers',1) ,
+VALUES('WS','SearchByCitizenId', 'http://10.102.60.43:8080/EnquiryPartyServices/SearchByCitizenId',1) ,
+('WS','SearchByCitizenId', 'http://10.102.60.43:8080/EnquiryPartyServices/SearchByCustomerName',1) ,
+('WS','SearchByCustomerName', 'http://10.102.60.43:8080/EnquiryPartyServices/SearchByCustomerName',1) ,
 ('WS','fake', 'https://jsonplaceholder.typicode.com/posts',1) ,
 ('WS','fakeUnactive', 'https://jsonplaceholder.typicode.com/posts',0) ,
 ('DB','host', 'localhost',0) ,

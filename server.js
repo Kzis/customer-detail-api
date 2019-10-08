@@ -30,6 +30,7 @@ export function setup() {
     app.use(cors())
 
     setupRoutes(app)
+
     loadAPIConfig().then((data) => {
         console.log("### Load API config successed")
         console.log(data)
