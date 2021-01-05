@@ -55,7 +55,7 @@
   "license": "ISC",
   "dependencies": {
     "@pm2/io": "^4.3.3",
-    "axios": "^0.19.0",
+    "axios": "^0.21.1",
     "babel-cli": "^6.26.0",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-plugin-transform-runtime": "^6.23.0",
